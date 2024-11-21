@@ -11,4 +11,6 @@ public class Ator extends Pessoa {
      return registro;
    }
    
+
+
 }
