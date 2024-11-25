@@ -1,12 +1,12 @@
-package Methods;
+package API;
 
 import java.util.ArrayList;
 
-public interface Crud<T> {
-     public boolean create(T objeto, T nome); 
-     public boolean edit(T objeto, T nome);
-     public String read(T objeto, T objeto);
-     public ArrayList <String> getAllList(T objeto);
+public interface Crud<O> {
+     public boolean create(O objeto, O nome); 
+     public boolean edit(O objeto);
+     public String read(O objeto);
+     public ArrayList <String> getAllList(O objeto);
     //  throws IOException {
     //     String url = "src/database/tables/" + name + ".txt";
     
