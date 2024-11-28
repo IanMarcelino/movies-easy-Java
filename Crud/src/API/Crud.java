@@ -3,10 +3,10 @@ package API;
 import java.util.ArrayList;
 
 public interface Crud<O> {
-     public boolean create(O objeto, O nome); 
+     public boolean register(O objeto, O nome); 
      public boolean edit(O objeto);
      public String read(O objeto);
-     public ArrayList <String> getAllList(O objeto);
+     public ArrayList <String> list(O objeto);
     //  throws IOException {
     //     String url = "src/database/tables/" + name + ".txt";
     

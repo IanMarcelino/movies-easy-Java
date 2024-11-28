@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.*;
 import java.nio.file.*;
+import java.util.ArrayList;
 
 // Atributos e Encapsulamento 
   public class Generic<G> {
@@ -21,7 +22,7 @@ import java.nio.file.*;
     return filepath;
   }
 
-// Métodos Gerais 
+// __________________Métodos Cadastrar__________________
 public boolean register(String dados, String tipoArquivo){
     String filepath = "C:\\Users\\User\\Desktop\\JAVA_AV3\\Crud\\src\\database\\" + tipoArquivo + ".txt";
     Path caminhoArquivo = Paths.get(filepath);  
@@ -37,7 +38,7 @@ public boolean register(String dados, String tipoArquivo){
             while ((linha = br.readLine()) != null) {
                 if (linha.equals(dados)) { 
                     System.out.println("Registro existente: " + dados);
-                    return false; // Dados duplicados, não grava
+                    return false; 
                 }
             }
         }
@@ -52,5 +53,28 @@ public boolean register(String dados, String tipoArquivo){
         return false;
         }
 
+}
+//_________________Método Listar__________________
+public ArrayList<String> list(String tipoArquivo) {
+    ArrayList<String> registros = new ArrayList<>();
+    String filepath = "C:\\Users\\User\\Desktop\\JAVA_AV3\\Crud\\src\\database\\" + tipoArquivo + ".txt";
+    Path caminhoArquivo = Paths.get(filepath);
+
+    try {
+        if (Files.exists(caminhoArquivo)) {
+            try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo.toFile()))) {
+                String linha;
+                while ((linha = br.readLine()) != null) {
+                    registros.add(linha); 
+                }
+            }
+        } else {
+            System.out.println("O arquivo não existe.");
+        }
+        return registros;
+    } catch (IOException e) {
+        System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+        return null;
+    }
 }
 }
