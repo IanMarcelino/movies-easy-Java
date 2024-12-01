@@ -4,8 +4,8 @@ import API.Generic;
 
 public class Ator extends Pessoa {
   private int registro;
-  private String filepath = "ator";
   private Generic generic = new Generic<Ator>();
+  public String filepath = "ator";
 
    public Ator(String cpf, String nome, String email, int registro){
     super(cpf, nome, email);
@@ -43,5 +43,19 @@ public ArrayList<Ator> listar() {
   }
   return atores;
 }
-
+public Ator consultar(String cpf) {
+  String linha = generic.read(filepath, cpf); 
+  if (linha != null) {
+      String[] partes = linha.split(";");
+      if (partes.length == 4) { 
+          return new Ator(partes[1], partes[2], partes[3], Integer.parseInt(partes[0]));
+      }
+  }
+  return null; 
+}
+public boolean editar() {
+  // Prepara os dados para edição no formato esperado (separados por ";")
+  String dados = this.getRegistro() + ";" + this.getCpf() + ";" + this.getNome() + ";" + this.getEmail();
+  return generic.edit(dados, filepath);
+}
 }

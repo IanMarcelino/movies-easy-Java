@@ -1,17 +1,13 @@
 // Imports
 package API;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.List;
 
 // Atributos e Encapsulamento 
-  public class Generic<G> {
+  public class Generic<G> implements Crud {
   private String filepath;
 
   public void setFilepath(String filepath) {
@@ -22,7 +18,8 @@ import java.util.ArrayList;
     return filepath;
   }
 
-// __________________Métodos Cadastrar__________________
+
+                        //Método Cadastrar
 public boolean register(String dados, String tipoArquivo){
     String filepath = "C:\\Users\\User\\Desktop\\JAVA_AV3\\Crud\\src\\database\\" + tipoArquivo + ".txt";
     Path caminhoArquivo = Paths.get(filepath);  
@@ -32,7 +29,7 @@ public boolean register(String dados, String tipoArquivo){
             Files.createFile(caminhoArquivo);
         }
 
-        // Verifica se os dados já existem no arquivo
+        
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo.toFile()))) {
             String linha;
             while ((linha = br.readLine()) != null) {
@@ -49,12 +46,12 @@ public boolean register(String dados, String tipoArquivo){
             return true; 
         }            
     } catch (IOException e) {
-        System.err.println("Erro ao registrar: " + e.getMessage());
+        System.err.println("Erro ao registrar seu cadastro.");
         return false;
         }
 
 }
-//_________________Método Listar__________________
+                        //Método Listar
 public ArrayList<String> list(String tipoArquivo) {
     ArrayList<String> registros = new ArrayList<>();
     String filepath = "C:\\Users\\User\\Desktop\\JAVA_AV3\\Crud\\src\\database\\" + tipoArquivo + ".txt";
@@ -73,8 +70,71 @@ public ArrayList<String> list(String tipoArquivo) {
         }
         return registros;
     } catch (IOException e) {
-        System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+        System.err.println("Erro no processamento da lista.");
         return null;
     }
+}
+
+                            //Método Consultar
+public String read(String tipoArquivo, String cpf) {
+    String filepath = "C:\\Users\\User\\Desktop\\JAVA_AV3\\Crud\\src\\database\\" + tipoArquivo + ".txt";
+    Path caminhoArquivo = Paths.get(filepath);
+
+    try {
+        if (Files.exists(caminhoArquivo)) {
+            try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo.toFile()))) {
+                String linha;
+                while ((linha = br.readLine()) != null) {
+                    String[] partes = linha.split(";");
+                    if (partes.length > 1 && partes[1].equals(cpf)) {
+                        return linha; 
+                    }
+                }
+            }
+        } else {
+            System.out.println("O arquivo não existe.");
+        }
+    } catch (IOException e) {
+        System.err.println("Erro na consulta cadastral." );
+    }
+    return null; 
+}
+
+                            //Método Editar
+public boolean edit(String dados,String tipoArquivo){
+    String filepath = "C:\\Users\\User\\Desktop\\JAVA_AV3\\Crud\\src\\database\\" + tipoArquivo + ".txt";
+    Path caminhoArquivo = Paths.get(filepath);
+    boolean att = false;
+    try {
+        List<String> linhas = Files.readAllLines(caminhoArquivo);
+        List<String> novasLinhas = new ArrayList<>();
+
+        String[] partesEditadas = dados.split(";");
+        String idEditado = partesEditadas[0];
+
+        for (String linha : linhas){
+            String[] partes = linha.split(";");
+
+            if (partes[0].equals(idEditado)) {
+                novasLinhas.add(dados);
+                att = true;
+            } else {
+                novasLinhas.add(linha);
+            }
+        }
+
+        Files.write(caminhoArquivo, novasLinhas);
+        if (att) {
+            System.out.println("Registro atualizado com sucesso!");
+        } else {
+            System.out.println("ID não encontrado.");
+        }
+
+        return att;
+    } catch(IOException e) {
+        System.out.println("Erro na atualização de cadastro.");
+        return false;
+    }
+
 }
 }
