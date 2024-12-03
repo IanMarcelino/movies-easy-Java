@@ -76,7 +76,7 @@ public ArrayList<String> list(String tipoArquivo) {
 }
 
                             //Método Consultar
-public String read(String tipoArquivo, String cpf) {
+public String read(String tipoArquivo, String dados) {
     String filepath = "C:\\Users\\User\\Desktop\\JAVA_AV3\\Crud\\src\\database\\" + tipoArquivo + ".txt";
     Path caminhoArquivo = Paths.get(filepath);
 
@@ -86,7 +86,7 @@ public String read(String tipoArquivo, String cpf) {
                 String linha;
                 while ((linha = br.readLine()) != null) {
                     String[] partes = linha.split(";");
-                    if (partes.length > 1 && partes[1].equals(cpf)) {
+                    if (partes.length > 1 && partes[0].trim().equals(dados.trim())) {
                         return linha; 
                     }
                 }
