@@ -12,13 +12,12 @@ public class MenuApplication {
 
   public void iniciarMenu() {
     Scanner scanner = new Scanner(System.in);
-    boolean running = true;
+    boolean running = true; //Só para organizar a leitura do código.. 
 
     while (running) {
       exibirMenu();
       System.out.print("Selecione a opção que deseja");
       String escolha = scanner.nextLine();
-      System.out.println("Você digitou: " + escolha); // Log para verificar entrada
       switch (escolha) {
         case "1":
           gerenciarAtores(scanner);
