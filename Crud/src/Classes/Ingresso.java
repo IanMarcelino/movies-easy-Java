@@ -22,7 +22,17 @@ public class Ingresso {
       this.sessao = sessao;
     }
 
-// ENCAPSULAMENTO
+    @Override
+public String toString() {
+    return "Ingresso{" +
+      "idIngresso=" + idIngresso +
+      ", valorPago=" + valorPago +
+      ", salaAssento=" + (salaAssento != null ? salaAssento.toString() : "null") +
+      ", sessao=" + (sessao != null ? sessao.toString() : "null") +
+      '}';
+}
+
+//ENCAPSULAMENTO
     public int getIdIngresso() {
       return idIngresso;
     }
@@ -55,19 +65,19 @@ public class Ingresso {
       this.sessao = sessao;
     }
 
-// CADASTRAR
-    public boolean cadastrar(Ingresso ingresso) {
-        String dados = ingresso.getIdIngresso() + ";" + ingresso.getValorPago() + ";" + ingresso.getSalaAssento().getIdSalaAssento() + ";" + ingresso.getSessao().getIdSessao();
-        return generic.register(dados, filepath);
+//CADASTRAR
+    public boolean cadastrar() {
+      String dados = this.getIdIngresso() + ";" + this.getValorPago() + ";" + this.getSalaAssento().getIdSalaAssento() + ";" + this.getSessao().getIdSessao();
+      return generic.register(dados, filepath);
     }
 
-// EDITAR
+//EDITAR
     public boolean editar(Ingresso ingresso) {
-        String dados = ingresso.getIdIngresso() + ";" + ingresso.getValorPago() + ";" + ingresso.getSalaAssento().getIdSalaAssento() + ";" + ingresso.getSessao().getIdSessao();
-        return generic.edit(dados, filepath);
+      String dados = ingresso.getIdIngresso() + ";" + ingresso.getValorPago() + ";" + ingresso.getSalaAssento().getIdSalaAssento() + ";" + ingresso.getSessao().getIdSessao();
+      return generic.edit(dados, filepath);
     }
 
-// CONSULTAR
+//CONSULTAR
     public Ingresso consultar(String id) {
       String linha = generic.read(filepath, id);
       try {
@@ -87,7 +97,7 @@ public class Ingresso {
       return null;
     }
 
-// LISTAR
+//LISTAR
     public ArrayList<Ingresso> listar() {
     ArrayList<String> registros = generic.list(filepath);
     ArrayList<Ingresso> ingressos = new ArrayList<>();

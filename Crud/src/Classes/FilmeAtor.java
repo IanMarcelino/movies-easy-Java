@@ -67,7 +67,7 @@ public String toString() {
   // CADASTRAR
   public boolean cadastrar() {
     String dados = this.getIdFilme() + ";" + this.getAtor().getRegistro() + ";" + this.getFilme().getIdFilme() + ";" + this.getPersonagem() + ";" + this.getPrincipal();
-    return generic.register(dados, filepath); // Cadastro correto
+    return generic.register(dados, filepath); 
   }
 
   // CONSULTAR
@@ -82,10 +82,9 @@ public String toString() {
           String personagem = partes[3];
           boolean principal = Boolean.parseBoolean(partes[4]);
 
-          // Consultar o filme pelo ID
           Filme filme = new Filme(filmeId);  
-          filme = filme.consultar(String.valueOf(filmeId));  
-          // Consultar o ator pelo registro
+          filme = filme.consultar(String.valueOf(filmeId));  //CONSULTAR FILME
+
           Ator ator = new Ator(Integer.parseInt(idAtor));  
           ator = ator.consultar(idAtor);  
 

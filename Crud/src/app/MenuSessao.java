@@ -68,7 +68,7 @@ public class MenuSessao {
     int idSala = Integer.parseInt(scanner.nextLine());
     System.out.print("Digite a matrícula do funcionário: ");
     int idFuncionario = Integer.parseInt(scanner.nextLine());
-    System.out.print("Digite o status da sessão: ");
+    System.out.print("Digite o status da sessão: (ATIVA/INATIVA)");
     String status = scanner.nextLine();
 
     LocalDateTime dataHoraSessao = LocalDateTime.parse(dataHora, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
@@ -133,17 +133,16 @@ public class MenuSessao {
       System.out.print("Digite a nova matrícula do funcionário: ");
       int idFuncionario = Integer.parseInt(scanner.nextLine());
 
-      // System.out.print("Digite o novo status da sessão: ");
-      // sessaoEditar.setStatus(scanner.nextLine());
+      System.out.print("Digite o novo status da sessão: ");
+      sessaoEditar.setStatus(scanner.nextLine());
 
-      // if (sessaoEditar.editar()) {
-      // System.out.println("Sessão editada com sucesso!");
-      // } else {
-      // System.out.println("Erro ao editar a sessão.");
-      // }
-      // } else {
-      // System.out.println("Sessão não encontrada.");
-      // }
+      if (sessaoEditar.editar(sessaoEditar)) {
+      System.out.println("Sessão editada com sucesso!");
+      } else {
+      System.out.println("Erro ao editar a sessão.");
+      }
+      } else {
+      System.out.println("Sessão não encontrada.");
+      }
     }
   }
-}

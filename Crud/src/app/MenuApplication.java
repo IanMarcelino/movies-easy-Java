@@ -16,7 +16,7 @@ public class MenuApplication {
 
     while (running) {
       exibirMenu();
-      System.out.print("Selecione o que deseja gerenciar: ");
+      System.out.print("Selecione a opção que deseja");
       String escolha = scanner.nextLine();
       System.out.println("Você digitou: " + escolha); // Log para verificar entrada
       switch (escolha) {

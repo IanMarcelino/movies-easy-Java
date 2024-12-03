@@ -1,9 +1,8 @@
 package app;
 
 import Classes.Ingresso;
-import Classes.SalaAssento;
 import Classes.Sessao;
-import API.Generic;
+import Classes.SalaAssento;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -65,19 +64,18 @@ public class MenuIngresso {
     int idSessao = Integer.parseInt(scanner.nextLine());
 
     SalaAssento salaAssento = new SalaAssento(idSalaAssento, null, null);
-    Sessao sessao = new Sessao(idSessao, null, null, null, null, "Ativa");
 
-    salaAssento = salaAssento.consultar(String.valueOf(idSalaAssento));
+    Sessao sessao = new Sessao(idSessao, null, null, null, null, "Ativa");
     sessao = sessao.consultar(String.valueOf(idSessao));
 
-    if (salaAssento == null || sessao == null) {
-      System.out.println("Erro: SalaAssento ou Sessão não encontrados. Verifique os IDs.");
+    if (sessao == null) {
+      System.out.println("Erro: Sessão não encontrada. Verifique o ID.");
       return;
     }
 
     Ingresso novoIngresso = new Ingresso(idIngresso, valorPago, salaAssento, sessao);
 
-    if (novoIngresso.cadastrar(novoIngresso)) {
+    if (novoIngresso.cadastrar()) {
       System.out.println("Ingresso cadastrado com sucesso!");
     } else {
       System.out.println("Erro ao cadastrar o ingresso. Verifique se o ID já existe.");
@@ -127,17 +125,14 @@ public class MenuIngresso {
       int idSessao = Integer.parseInt(scanner.nextLine());
 
       SalaAssento salaAssento = new SalaAssento(idSalaAssento, null, null);
+      ingressoEditar.setSalaAssento(salaAssento);
+
       Sessao sessao = new Sessao(idSessao, null, null, null, null, "Ativa");
-
-      salaAssento = salaAssento.consultar(String.valueOf(idSalaAssento));
       sessao = sessao.consultar(String.valueOf(idSessao));
-
-      if (salaAssento == null || sessao == null) {
-        System.out.println("Erro: SalaAssento ou Sessão não encontrados. Verifique os IDs.");
+      if (sessao == null) {
+        System.out.println("Erro: Sessão não encontrada. Verifique o ID.");
         return;
       }
-
-      ingressoEditar.setSalaAssento(salaAssento);
       ingressoEditar.setSessao(sessao);
 
       if (ingressoEditar.editar(ingressoEditar)) {
